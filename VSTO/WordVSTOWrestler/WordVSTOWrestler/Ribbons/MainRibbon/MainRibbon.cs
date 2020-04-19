@@ -6,6 +6,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+
+using Microsoft.Office.Tools.Ribbon;
+using Microsoft.Office.Tools.Word;
+using Word = Microsoft.Office.Interop.Word;
 using Office = Microsoft.Office.Core;
 
 namespace WordVSTOWrestler
@@ -15,8 +19,11 @@ namespace WordVSTOWrestler
 	{
 		private Office.IRibbonUI ribbon;
 
+		private Word.Application Application => Globals.ThisAddIn.Application;
+		private Document ActiveDocument => Globals.Factory.GetVstoObject(Application.ActiveDocument);
+
 		#region Ribbon Callbacks
-		
+
 		public void Ribbon_Load(Office.IRibbonUI ribbonUI)
 		{
 			this.ribbon = ribbonUI;
@@ -24,7 +31,13 @@ namespace WordVSTOWrestler
 
 		public void TestButtonClick(Office.IRibbonControl control)
 		{
-			MessageBox.Show("Test");
+			var doc = ActiveDocument;
+
+			var rngPara = doc.Paragraphs[1].Range;
+			object unitCharacter = Word.WdUnits.wdCharacter;
+			object backOne = -1;
+			rngPara.MoveEnd(ref unitCharacter, ref backOne);
+			rngPara.Text = "replacement text";
 		}
 
 		#endregion
