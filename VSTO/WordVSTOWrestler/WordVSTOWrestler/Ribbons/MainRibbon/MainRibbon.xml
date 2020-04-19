@@ -12,4 +12,10 @@
 			</tab>
 		</tabs>
 	</ribbon>
+  <contextMenus>
+    <contextMenu idMso="ContextMenuText">
+      <button id="MyButton" label="My Button"  onAction="MyButtonClick" />
+    
+    </contextMenu>
+  </contextMenus>
 </customUI>

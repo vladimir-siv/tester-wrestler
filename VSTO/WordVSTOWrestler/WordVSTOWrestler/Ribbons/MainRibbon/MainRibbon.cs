@@ -40,6 +40,18 @@ namespace WordVSTOWrestler
 			rngPara.Text = "replacement text";
 		}
 
+		public void MyButtonClick(Office.IRibbonControl control)
+		{
+			var app = Application;
+			if (app.Selection.Paragraphs.Count <= 0) return;
+
+			var rngPara = app.Selection.Paragraphs[1].Range;
+			object unitCharacter = Word.WdUnits.wdCharacter;
+			object backOne = -1;
+			rngPara.MoveEnd(ref unitCharacter, ref backOne);
+			rngPara.Text = "replacement text";
+		}
+
 		#endregion
 
 		#region IRibbonExtensibility Members
